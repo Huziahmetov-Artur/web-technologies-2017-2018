@@ -3,7 +3,7 @@ import React from 'react'
 function MainInfo(props) {
 
     return(
-        <div>
+        <div className="bioInfo">
             <img src={props.bio.img_url} alt="noPhoto"/>
             <div className="info_center">
                 <h1 className="name">{props.bio.name ? props.bio.name : "Name not filled"}</h1>

@@ -3,7 +3,6 @@ import store from "../store/Store";
 import Tab from './PartTabs'
 import {connect} from 'react-redux';
 import InputInfo from '../components/inputInfo'
-import ListInfo from '../components/listInfo'
 import MainInfo from '../components/mainInfo'
 import {getBioInfo} from '../actions/actionForBio'
 
@@ -18,27 +17,23 @@ class Lab3 extends React.Component{
         if(!store.getState().bioInfo.start){
             if(!this.state.fol){
                 return(
-
                     <div>
-                        <div className="info">
                             <InputInfo find={this.props.setBio}/>
+                        <div className='userInfo'>
                             <MainInfo bio={this.props.store.bioInfo}/>
+                            <Tab />
                         </div>
-                        <Tab />
                     </div>
                 )}
             else {
                 return(
 
                     <div>
-                        <div className="info">
-                            <div className="info">
                                 <InputInfo find={this.props.setBio}/>
                                <MainInfo  bio={this.props.store.bioInfo}/>
-                            </div>
-                            <ListInfo bio={this.props.store.bioInfo}/>
+                        <div className='userInfo'>
+                                <Tab />
                         </div>
-                        <Tab />
                     </div>
                 )
             }
@@ -46,10 +41,7 @@ class Lab3 extends React.Component{
         else {
             return (
                 <div>
-                    <div className="info">
                         <InputInfo find={this.props.setBio}/>
-                    </div>
-
                 </div>
 
             )

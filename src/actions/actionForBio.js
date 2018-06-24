@@ -1,22 +1,27 @@
-import {getFollowers,getInfo,getRepos} from './GitApi'
+import {getInfo} from './GitApi'
+export function setContent() {
+    console.log('here');
+    return {
+        type: 'SET_STATEE'
+    }
+}
 
 export const getBioInfo = (e) => (dispatch) => {
 
-    getInfo().then((e) => {
-        for(let i = 0; i < e.length;i++){
-            dispatch({
-                type : 'SET_STATE',
-                login : e[i]['username'],
-                bio : e[i]['website'],
-                name : e[i]['name'],
-                email : e[i]['email'],
-                phone : e[i]['phone']
-            })
-        }
 
+    getInfo().then((e) => {
+        dispatch({
+            type : 'SET_STATE',
+            login : e['login'],
+            img_url : e['avatar_url'],
+            bio : e['bio'],
+            name : e['name'],
+            company : e['company'],
+            location : e['location'],
+            email : e['email'],
+            blog : e['blog']
+        })
     })
 
-}
-
-
+};
 

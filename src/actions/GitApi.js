@@ -10,9 +10,22 @@ function fetchInfo(a) {
 
 function getInfo() {
     let a = document.getElementById('pole') ? document.getElementById('pole') : 'artur';
-    let e = fetchInfo('http://jsonplaceholder.typicode.com/users/');
+    let e = fetchInfo(`https://api.github.com/users/${a.value}`);
     return e;
 }
 
+function getFollowers() {
+    let a = document.getElementById('pole') ? document.getElementById('pole') : 'artur';
+    return fetchInfo(`https://api.github.com/users/${a.value}/followers`).then((res) => {
+        return res
+    })
+}
 
-export {getInfo}
+function getRepos() {
+    let a = document.getElementById('pole') ? document.getElementById('pole') : 'artur';
+    return fetchInfo(`https://api.github.com/users/${a.value}/repos`).then((res) => {
+        return res
+    })
+}
+
+export {getFollowers,getInfo,getRepos}

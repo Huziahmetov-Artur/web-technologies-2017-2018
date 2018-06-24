@@ -46,7 +46,7 @@ const tabReducer = (state = BeginStateTab, action) =>{
             return {
                 ...state,
                 canEdit : !state.canEdit
-            }
+            };
         default :
             return state;
     }

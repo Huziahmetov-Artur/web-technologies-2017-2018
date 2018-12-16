@@ -8,58 +8,58 @@ import {
 } from '../services/services'
 import { validation } from './validationSchemas'
 
-const all = (req, res) => {
-  res.send(getAllMovies());
+const all = async (req, res) => {
+  res.send(await getAllMovies())
 }
 
-const search = (req, res) => {
-  Joi.validate(req.query, validation.searchSchema, (err, value) => {
+const search = async (req, res) => {
+  await Joi.validate(req.query, validation.searchSchema, async (err, value) => {
     if (err) {
       res.status(400).json({
         status: 'Bad request',
         message: 'Missed query parameters'
       })
     } else {
-      res.send(getMoviesByTitle(value.name));
+      res.send(await getMoviesByTitle(value.name));
     }
   })
 }
 
-const sort = (req, res) => {
-  Joi.validate(req.query, validation.sortSchema, (err, value) => {
+const sort = async (req, res) => {
+  await Joi.validate(req.query, validation.sortSchema, async (err, value) => {
     if (err) {
       res.status(400).json({
         status: 'Bad request',
         message: 'Invalid query parameters'
       })
     } else {
-      res.send(getSortedMovies(value.field, value.direction))
+      res.send(await getSortedMovies(value.field, value.direction))
     }
   })
 }
 
-const page = (req, res) => {
-  Joi.validate(req.query, validation.pageSchema, (err, value) => {
+const page = async (req, res) => {
+  await Joi.validate(req.query, validation.pageSchema, async (err, value) => {
     if (err) {
       res.status(400).json({
         status: 'Bad request',
         message: 'Invalid query parameters'
       })
     } else {
-      res.send(getMoviesPage(value.from, value.to))
+      res.send(await getMoviesPage(value.from, value.to))
     }
   })
 }
 
-const id = (req, res) => {
-  Joi.validate(req.params, validation.idSchema, (err, value) => {
+const id = async (req, res) => {
+  await Joi.validate(req.params, validation.idSchema, async (err, value) => {
     if (err) {
       res.status(400).json({
         status: 'Bad request',
         message: 'Invalid query parameters'
       })
     } else {
-      res.send(getMovieById(value.id))
+      res.send(await getMovieById(value.id))
     }
   })
 }

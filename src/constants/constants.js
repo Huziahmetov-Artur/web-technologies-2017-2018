@@ -16,9 +16,12 @@ const page = {
 
 const notFound = 'Sorry, no such film';
 
+const db = "mongodb://localhost:27017/lab10"
+
 export const constants = {
   search,
   sort,
   page,
-  notFound
+  notFound,
+  db
 }

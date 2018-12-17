@@ -16,9 +16,18 @@ const page = {
 
 const notFound = 'Sorry, no such film';
 
+const dbSettings = {
+  dbName: 'lab9',
+  dbLogin: 'postgres',
+  dbPassword: '38asetet',
+  dbHost: '127.0.0.1',
+  dbDialect: 'postgres'
+}
+
 export const constants = {
   search,
   sort,
   page,
-  notFound
+  notFound,
+  dbSettings
 }

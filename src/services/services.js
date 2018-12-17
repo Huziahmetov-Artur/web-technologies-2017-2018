@@ -1,56 +1,46 @@
-import movies from '../assets/movies.json'
-import { constants } from '../constants/constants'
+import Sequelize  from 'sequelize';
+import { sequelize, model } from '../db/index';
 
-function getAllMovies() {
-  return movies.map(item => item.title)
+const Op = Sequelize.Op;
+
+async function getAllMovies() {
+  return await sequelize.sync().then(() => model.findAll())
 }
 
-function getSortedMovies(field, type) {
-  return movies
-    .slice()
-    .sort((a, b) => {
-      if (type.localeCompare(constants.sort.down)) {
-        return a[field].toString().localeCompare(
-          b[field], constants.sort.language, { numeric: true }
-        )
-      } else if (type.localeCompare(constants.sort.up)) {
-        return b[field].toString().localeCompare(
-          a[field], constants.sort.language, { numeric: true }
-        )
+async function getSortedMovies(field, type) {
+  console.log(131)
+  return await sequelize.sync().then(() => {
+    return model.findAll({
+      order: [[field, type]]
+    })
+  })
+}
+
+async function getMoviesByTitle(movie) {
+  return await sequelize.sync().then(() => {
+    return model.findAll({
+      where: {
+        title: {
+          [Op.iLike]: '%' + movie + '%'
+        }
       }
     })
-    .map(item => item.title)
+  })
 }
 
-function getMoviesByTitle(movie) {
-  const moviesRes = movies
-    .filter(item =>
-      item.title
-        .toLowerCase()
-        .includes(movie.toLowerCase())
-    )
-    .map(item => item.title);
-
-  if(moviesRes[0]){
-    return moviesRes;
-  }
-  return constants.notFound;
+async function getMoviesPage(offset, limit) {
+  return await sequelize.sync().then(() => {
+    return model.findAll({
+      offset: offset,
+      limit: limit
+    })
+  })
 }
 
-function getMoviesPage(offset, limit) {
-  return movies
-    .slice(Number(offset), Number(offset) + Number(limit))
-    .map(item => item.title);
-}
-
-function getMovieById(id) {
-  const moviesRes =  movies
-    .filter(item => item.id === Number(id))
-    .map(({ title, id }) => ({ title, id }));
-  if(moviesRes[0]) {
-    return moviesRes;
-  }
-  return constants.notFound;
+async function getMovieById(id) {
+  return await sequelize.sync().then(() => {
+    return model.findByPk(id)
+  })
 }
 
 export {

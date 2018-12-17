@@ -9,7 +9,7 @@ import {
 import { validation } from './validationSchemas'
 
 const all = (req, res) => {
-  res.send(getAllMovies());
+  getAllMovies(res);
 }
 
 const search = (req, res) => {
@@ -20,7 +20,7 @@ const search = (req, res) => {
         message: 'Missed query parameters'
       })
     } else {
-      res.send(getMoviesByTitle(value.name));
+      getMoviesByTitle(value.name, res);
     }
   })
 }
@@ -33,7 +33,7 @@ const sort = (req, res) => {
         message: 'Invalid query parameters'
       })
     } else {
-      res.send(getSortedMovies(value.field, value.direction))
+      getSortedMovies(value.field, value.direction, res)
     }
   })
 }
@@ -46,7 +46,7 @@ const page = (req, res) => {
         message: 'Invalid query parameters'
       })
     } else {
-      res.send(getMoviesPage(value.from, value.to))
+      getMoviesPage(value.from, value.to, res)
     }
   })
 }
@@ -59,7 +59,7 @@ const id = (req, res) => {
         message: 'Invalid query parameters'
       })
     } else {
-      res.send(getMovieById(value.id))
+      getMovieById(value.id, res)
     }
   })
 }

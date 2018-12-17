@@ -1,21 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import store from './store/Store'
-import Lab3 from './Conteiner/PartInfo'
-import {Provider} from 'react-redux';
+import express from 'express'
+import dotenv from 'dotenv/config'
+import routes from './routes'
 
+const app = express()
+app.use(routes)
 
+const port = process.env.PORT
 
-const render = () => {
-    ReactDOM.render(
-        <Provider store={store}>
-            <Lab3 />
-        </Provider>,
-        document.getElementById('root'))
-};
+app.listen(port, console.log('Server started on port ' + process.env.PORT))
 
-store.dispatch({
-    type : 'BEGIN_WORK'
-});
-store.subscribe(render);
-render();
